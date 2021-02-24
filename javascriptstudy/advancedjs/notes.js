@@ -202,3 +202,128 @@ const reduceArray = array.reduce((accumulator, num) => {
     // wizard2.play = function () {
     //     console.log(`WEEEEEE I'm a $(this.type)`);
     // }
+
+
+// Passed By Ref & Passed by Value: 
+    // Primitive Types are immutable => pass by value
+    // Objects are passed by reference
+    // Pass by value copies the value and makes them different
+    // But pass by reference only copies the refernce to the memory address
+
+    // You can actually copy the values of arrays and objects using these methods
+    let obj = {a: 'a', b: 'b'};
+    let clone = Object.assign({}, obj);
+
+    // or use spread operator
+    let clone2 = {...obj};
+
+    //for array:
+    let list = [0,1,2,3,4];
+    let newList = [].concat(list);
+
+    //if we have nested objects, we have to take a more thorough path
+    //Each object gets passed by reference:  since there are two objects, you pass by reference
+    // and only clone the first layer; need to deep clone
+
+    let superClone = JSON.parse(JSON.stringify(obj));
+    // be careful of deep clones, you could have perf implications
+
+// Type Coercion:
+    1 == '1' // True
+    // Do all languages have type coercion? Yes they do
+    // Type coerciion happens when you use the double equals
+    // Three equals doesn't use type coercion
+    // Recommended to not use double equals because it is not predictibale
+    // https://dorey.github.io/JavaScript-Equality-Table/
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness
+    // Object.is (-0 & +0) => good for edge cases like NaN
+
+// ES7: 2016
+    // includes methods
+        'Hello'.includes('0'); // Returns ture
+        const pets = ['cats', 'dogs', 'bat']
+        pets.includes('dog'); // Returns True
+    // exponential operator:
+        const square = (x) => x**2;
+        square(2) // returns 4
+        const cube = (x) => x**3;
+        cube(4) // returns 64
+
+// ES8 2017
+    //.padStart
+        'Turtle'.padStart(10); // adds spaces for a total of 10 spaces
+        'Turtle'.padEnd(10);
+    // Ending Comma is ok
+        const fun = (a,b,c,d,) => {
+            console.log(a);
+        }
+        
+        fun(1,2,3,4,)
+    // Object iteration, can use map, filter and reduce on objects now!
+        let obj = {
+            username0: 'santa',
+            username1: 'rudolph',
+            username2: 'grinch'
+        }
+        //used to be able to use
+        Object.keys(obj).forEach((key, index) => {
+            console.log(key, obj[key]);
+        })
+
+        Object.values(obj).forEach(value => {
+            console.log(value);
+        })
+
+        Object.entries(obj).forEach(value => {
+            console.log(value);
+        })
+
+        Object.entries(obj).map(value=> {
+            return value[1] + value[0].replace('username', '');
+        })
+
+// ES10 2019
+    // .flat()
+        const array = [1,2,3,4,5];
+        array.flat() // returned a new same array;
+
+        const array = [1,[2,3],[4,5]];
+        array.flat() // flattens array to remove nesting
+
+        const array = [1,2,[3,4,[5]]];
+        array.flat() // flattens array to first level of nexting
+        
+        const array = [1,2,[3,4,[5]]];
+        array.flat(2) // can pass how many layers to flatten
+
+        const entries = ['bob', 'sally', , , , 'cindy']
+        entries.flat()// can clean up data
+    // .flatMap() allows us to use flat function with map function
+        const jurrasicParkChaos = jurrasicPark.flatMap(creature => creature + 'trex')
+    
+    // .trim methods
+        userEmail = '         eddy@gmail.com'
+        userEmail2= 'jon@gmail.com          '
+        userEmail.trimStart() // or
+        userEmail2.trimEnd()
+    
+    // from entries: 
+        userProfiles = [['commanderTom', 23], ['derekZ', 40], ['hansel', 18]]
+        const obj = Object.fromEntries(userProfiles)
+        // can change back 
+        Object.entries(obj)
+
+    // try catch block
+    try {
+        true + 'hi' + bob
+    } catch (error) {
+        console.log('you messed up' + error);
+    }
+
+// Advanced Loops
+// ES2020 Pt 1
+// ES2020 Pt 2
+// ES2020 Pt 3
+// Debugging
+// How JavaScript Works
+// Modules 
