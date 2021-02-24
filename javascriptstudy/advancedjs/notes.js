@@ -135,3 +135,70 @@ const reduceArray = array.reduce((accumulator, num) => {
     return accumulator + num
 
 }, 0);
+
+// Reference Type
+    var object1 = { value: 10};
+    var object2 = object1
+    var object3 = {value: 10}
+    // Objects are reference types in JavaScript
+    // Reference types are non primitive types & created 
+    // by the programmer, not by JavaScript. 
+    // Similar to pointers in C
+
+// Context
+    // Does != scope
+    // Tells where we are within object
+    // "this" -> special word in JS
+    // "this" is the window object this === window => True
+    // what is to the left of the "."
+
+    const object4 = {
+        a: function() {
+            console.log(this)
+        }
+    }  // object for is the object in this case now, 
+        // not window frame
+// Instantiation
+    class Player {
+        constructor(name, type) {
+            this.name = name;
+            this.type = type;
+        }
+        introduce() {
+            console.log(`Hi i am $(this.name), I'm a $(this.type)`)
+        }
+    }
+
+    class Wizard extends Player{
+        constructor(name, type) {
+            super(name, type)
+        }
+        play() {
+            console.log(`WEEEEEE I'm a $(this.type)`);
+        }
+    }
+
+    const wizard1 = new Wizard('Shelly', 'Healer');
+    const wizard2 = new Wizard('Shawn', 'Dark Magic');
+
+    // Classical Inheritance:
+    // For Reference We use instantiaion now
+
+    // var Player = function(name, type) {
+    //     this.name = name;
+    //     this.type = type;
+    // }
+
+    // Player.prototype.introduce = function() {
+    //     console.log(`Hi i am $(this.name), I'm a $(this.type)`)
+    // }
+
+    // var wizard1 = new Player("Shelly", "healer");
+    // var wizard2 = new Player("Shawn", "dark magic");
+
+    // wizard1.play = function () {
+    //     console.log(`WEEEEEE I'm a $(this.type)`);
+    // }
+    // wizard2.play = function () {
+    //     console.log(`WEEEEEE I'm a $(this.type)`);
+    // }
