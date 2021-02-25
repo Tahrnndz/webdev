@@ -424,5 +424,100 @@ const reduceArray = array.reduce((accumulator, num) => {
         }, []);
     // use console and debugger to fix issues; 
 // How JavaScript Works
-// Modules 
+    // Don't need to know this stuff, but good to have
+    // Programs allocate memore, parse & execute scripts
+    // JavaScript engine has a mem heap and call stack
+    const a = 1; // allocated memory here
+    // memory leak:
+        // have limited amount of memory, 
+        // happen when you have unused memory just laying around
+        // global variables are bad.  Variables aren't being used
+    // Call Stack:
+        console.log('1');
+        console.log('2');
+        console.log('3');
+        // adds each to call stack then runs then removes 
+        // and moves on to next statement for basic ex
+        const one = () => {
+            const two = () => {
+                console.log('4');
+            }
+            two();
+        }
 
+        // call stack for above: execute from top to bottom then
+        // remove 
+        console.log('4')
+        two()
+        one()
+    // single threaded = one call stack (First in last out)
+    // other languages has multi stacks (multi threaded)
+    // running code on one stack is less complex
+    // This is synchronous programming, can't start til the other 
+    // finishes.  
+
+    // stack overflow:
+        function foo(){
+            foo()
+        }
+        foo()
+        // ^ recursion without a way out can cause stack overflow
+        
+    // non - blocking: asynchronous tasks
+    console.log('1');
+    setTimeout(() =>{
+        console.log('2');
+    }, 2000)
+    console.log('3');
+        // ^ Executes '1', '3', then '2'
+    // JavaScript runtime environment 
+    // have web api's callback ques and event loops
+    
+    // call stack ex
+    console.log('3');
+    console.log('1');
+    // web api  // starts timer of 2 secs
+    setTimeout()
+    
+    // callback que
+
+    // event loop
+    // setTimeout(), makes it go through the runtime envr;
+    // Recap: 
+        // sync makes UX poor
+        // sync like calling professor
+        // Async is like sending a text to professor
+        // no waiting
+
+    Element.addEventListener('click', () => {
+        console.log('click')
+    })
+    // console.log( puts in callback queue;
+    // JavaScript is single threaded language that can be
+    // that can be non blocking, it can be async through call
+    // back functions throug call back que and event loop
+
+// Modules 
+    // Climbing the mental models of javascript
+                    // WebPack2 + ES6 => export & import now
+                    // WebPack bundles JS files and determines the dependency tree
+                    // Will be using this syntax now in react
+                    // Webpack has a config file that sets all this up for us
+                // browserify => used common js syntax to create one file bundle.js
+                // better for deployment, not for development
+            // IIFE =. Immediatedly Invoked Function Execution
+        // script tags
+    // inline script
+    // https://medium.com/sungthecoder/javascript-module-module-loader-module-bundler-es6-module-confused-yet-6343510e7bde
+    // https://hacks.mozilla.org/2018/03/es-modules-a-cartoon-deep-dive/
+    // https://github.com/getify/You-Dont-Know-JS
+    // http://javascript.info/
+    // http://dmitrysoshnikov.com/ecmascript/javascript-the-core-2nd-edition/
+    // https://medium.freecodecamp.org/how-to-think-like-a-programmer-lessons-in-problem-solving-d1d8bf1de7d2
+    // Question 1: Clean the room function: given an input of [1,2,4,591,392,391,2,5,10,2,1,1,1,20,20], make a function that organizes these into individual array that is ordered. For example answer(ArrayFromAbove) should return: [[1,1,1,1],[2,2,2], 4,5,10,[20,20], 391, 392,591]. Bonus: Make it so it organizes strings differently from number types. i.e. [1, "2", "3", 2] should return [[1,2], ["2", "3"]]
+
+    // Question 2: Write a javascript function that takes an array of numbers and a target number. The function should find two different numbers in the array that, when added together, give the target number. For example: answer([1,2,3], 4)should return [1,3]
+
+    // Question 3: Write a function that converts HEX to RGB. Then Make that function auto-dect the formats so that if you enter HEX color format it returns RGB and if you enter RGB color format it returns HEX.
+
+    // You can see the solution files by other students here (https://github.com/zero-to-mastery/Coding_Challenge-6)
