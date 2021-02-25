@@ -1,0 +1,36 @@
+css-tricks.com
+unsplash.com
+palleton.com
+https://www.w3schools.com/cssref/css_selectors.asp
+https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Cascade_and_inheritance
+https://specificity.keegan.st/
+https://zero-to-mastery.github.io/resources/
+https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+http://flexboxfroggy.com/
+https://darekkay.com/dev/flexbox-cheatsheet.html
+https://www.w3schools.com/cssref/css3_browsersupport.asp
+https://caniuse.com/
+https://robots.thoughtbot.com/transitions-and-transforms
+https://learn.freecodecamp.org/responsive-web-design/basic-css
+element element (h2 div)
+    i want you to select all keys inside first element
+element > element (h2 > p)
+    i want you to select all p that have direct parent of h2 
+element + element ( h2 + p)
+    select any p element exactly after h2 element
+:hover: (p:hover)
+    changes style over
+:last-child: webtext:last-child
+!important: over rules any below styles - not recommended
+
+What selectors win out in the cascade depends on:
+-specificity
+-Importance
+-Source order
+
+Critcal Render Path:
+    Render = Display
+    CSS is a render blocking file. so is font file
+    Make websites faster by not making CSS too big 
+    CSS minifier helps speed as well. removes whitespace
+    
