@@ -321,9 +321,108 @@ const reduceArray = array.reduce((accumulator, num) => {
     }
 
 // Advanced Loops
+    const basket = ['apples', 'oranges', 'grapes'];
+    const detailedBasket = {
+        apples: 5,
+        oranges: 10,
+        grapes: 1000
+    }
+    //1
+    for (let i = 0; i < basket.length; i++) {
+        console.log(basket[i]);
+    }
+    //2
+    basket.forEach(item => {
+        console.log((item);
+    })
+    // iterating => able to go one by one through an item and look at items
+    // can be done on iterables (arrays, strings)
+    // for of new in es6
+    for (item of basket) {
+        console.log(item);
+    }
+    // for in works with objects, allows us to see object properties
+    // not iterating, bc object, we are enumerating instead
+    // bc props of objects are enumerable
+    // can use this on arrays bc arrays are objects that have num keys
+    for (item in detailedBasket) {
+        console.log(item)
+    }
+    
+
 // ES2020 Pt 1
-// ES2020 Pt 2
-// ES2020 Pt 3
+    // BigInt
+        //New Type
+        // add letter n after number
+        type of 1n
+        // https://stackoverflow.com/questions/307179/what-is-javascripts-highest-integer-value-that-a-number-can-go-to-without-losin
+        // limit to how much we can store in memory, bigInt solving the problem
+        MAX_SAFE_INTEGER // need to have n for both numbers if using expression
+    // Nullish Coalescing Operator ??
+    // can be used instead of the Or operator
+        let andrei_pokemon = {
+            pickachu: {
+                species: 'Mouse',
+                height: 0.8,
+                weight: 30,
+                power: ''
+            }
+        }
+        let power = andrei_pokemon?.pikachu?.power || 'no power'  //evals to no power
+        // can use nullish cov
+        let power = andrei_pokemon?.pikachu?.power ?? 'no power'  //evals to no power
+    // Optional Chaining Operator ?.
+        let will_pokemon = {
+            pikachu: {
+                species: 'Mouse',
+                height: 0.4,
+                weight: 6
+            }
+        }
+        let andrei_pokemon = {
+            raichu: {
+                species: 'Mouse',
+                height: 0.8,
+                weight: 30
+            }
+        }
+        let weight = will_pokemon.pikachu.weight
+        console.log(weight); //get weight of 6
+
+        let weight2 = andrei_pokemon.pikachu.weight
+        console.log(weight); //have issues bc no pickachu in obj
+
+        // used to solve this problem by: very annoying
+        if (andrei_pokemon.pikachu && andrei_pokemon.pikachu.weight) {
+            let weight2 = andrei_pokemon.pikachu.weight;
+        } else {
+            let weight2 = undefined;
+            console.log(weight2);
+        }
+
+        // optional chaining solution:
+        let weight3 = andrei_pokemon?.pikachu?.weight;
+        console.log(weight); // get undefined and checks, if not there assigns 
+        //as undefined  ? checks properties
+    // Promise: allSettled
+        // tbd
+    // globalThis
+        // tbd
 // Debugging
+    // 
+    const flattened = [[0,1], [2,3], [4,5]].reduce(
+        (accumulator,array) => {
+            console.log('array', array);
+            console.log('accum', accumulator);
+            return accumulator.concat(array)
+        }, []);
+    // can use debugger instead of console.log
+    const flattened = [[0,1], [2,3], [4,5]].reduce(
+        (accumulator,array) => {
+            debugger;
+            return accumulator.concat(array)
+        }, []);
+    // use console and debugger to fix issues; 
 // How JavaScript Works
 // Modules 
+
