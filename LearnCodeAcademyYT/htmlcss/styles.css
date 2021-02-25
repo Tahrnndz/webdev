@@ -1,0 +1,106 @@
+body {
+    background: rgb(173, 163, 163);
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+/*Header*/
+
+header {
+    background-color: black;     
+    background-image: url("images/bread.jpeg");
+    background-size: 100%;
+    background-position: center;
+    height: 400px;
+    padding: 20px;
+    text-align: center;     
+}
+header a {
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase;
+    margin-top: 40px;
+}
+header .mobile {
+    display: none;
+}
+header .logo a{
+    background-image:url("images/artisan.jpeg");
+    background-size: 300px;
+    /* background-position-x: center; */
+    background-repeat: no-repeat;
+    display: inline-block;
+    height: 75px;
+    position: relative;
+    text-indent: -99999px;
+    top: -30px;
+    width: 300px;
+}
+nav ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;                
+}
+nav li {
+    display: inline-block;
+    margin: 20px;
+}
+/* Responsive Rules*/
+@media screen and (max-width: 725px) {
+    header {
+        height: 180px;
+        /* background-position: 0 -30px; */
+    }
+    header .mobile{
+        display: inline-block;
+    }
+    header .desktop { 
+        display:  none;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    header {
+        height: 200px;
+        /* background-position-x: 0 -0px; */
+    }
+}
+
+/* Features */
+
+.features {
+    background: white;
+    color: gray;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+}
+.features figure {
+    margin: auto;
+    padding: 5px;
+    text-align: center;
+    text-transform: uppercase;
+    width: 200px;
+}
+
+.features figure img {
+    border: 1px solid white;
+    border-radius: 50%;
+    box-shadow: gray 0px 0px 10px;
+    width:200px;
+}
+
+
+footer {
+    background:black;
+    color: gray;
+    font-size: 12px;
+    padding: 20px 20px;
+    text-align: center;
+}
+
+
+

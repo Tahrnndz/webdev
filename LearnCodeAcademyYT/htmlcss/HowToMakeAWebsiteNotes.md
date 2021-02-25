@@ -1,0 +1,11 @@
+- buy domain: iwantmyname.com
+- .com are cheapest
+- need to buy webhosting and point domain servers to it
+
+- buy webserver: hostgator - buy baby plan
+- letsmakeadeal coupon code for hostgator 30% off ~
+- drop10bucks & drop25perc
+- turn off all extra upsells
+- hosting tab has details we need. 
+  - need name servers from hostgator to iwantmyname.com
+- file manager in hostgator: 
