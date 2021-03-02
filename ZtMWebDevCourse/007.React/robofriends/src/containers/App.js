@@ -1,6 +1,6 @@
 import React from 'react';
 import CardList from '../componenents/CardList';
-import SearchBox from '../componenents/SearchBox'
+import SearchBox from '../componenents/SearchBox';
 // import { robots } from './robots';
 import './App.css';
 // import { render } from 'react-dom';
