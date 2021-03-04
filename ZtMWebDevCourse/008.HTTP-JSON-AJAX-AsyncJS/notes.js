@@ -1,58 +1,58 @@
-### HTTP/HTTPS
-* HTTP: 
-    * GET
-    * POST
-    * PUT
-    * DELETE
-* Network Tab: 
-    * Shows all HTTP header info
-    * Use example .com
-* Send data two ways:
-    * Query String params
+// ### HTTP/HTTPS
+// * HTTP: 
+//     * GET
+//     * POST
+//     * PUT
+//     * DELETE
+// * Network Tab: 
+//     * Shows all HTTP header info
+//     * Use example .com
+// * Send data two ways:
+    // * Query String params
         * <form method="GET">
-        * GET request adds info to the URL (query string)
-    * Body of request to send info:
+        {/* * GET request adds info to the URL (query string) */}
+    {/* * Body of request to send info:
         * POST Request
             * More common than GET request due to not being in URL query string
             * wont see PWD in URL at least, in Form Data
-    * Issue with HTTP Requests is bc people can sniff this info and steal sensitive info
-* HTTPS: 
+    * Issue with HTTP Requests is bc people can sniff this info and steal sensitive info */}
+{/* * HTTPS: 
     * Secure version of HTTP: Communicationi is encrypted
     * Uses TLS tech to secure the communication
-    * If you are sending sensitive info, make sure it is over HTTPS
+    * If you are sending sensitive info, make sure it is over HTTPS */}
 
-### JSON:
+{/* ### JSON:
 * we cannot send a javascript object, but there is a standard format that we can use though
 * JSON: JavaScript object notation
     * JSON is becoming the standard, more succient way, saves bandwidth
-    * Has quotes around both sides unlike reg js obj
-* XML: 
+    * Has quotes around both sides unlike reg js obj */}
+{/* * XML:  */}
     * Outdated & inefficient
-* JSON.parse() & JSON.stringify()
+{/* * JSON.parse() & JSON.stringify() */}
     * var obj = JSON.parse('{"name":"John", "age":30, "city":"New York"}');
     * var myJSON = JSON.stringify(obj);
 
-### AJAX
+{/* ### AJAX
 * AJAX allows you to submit to the server whenever you want without the webpage being a <form>
 * Allow web pages to request small chunks of data, and display them only when needed
 * ALlows you to read from the webserver and request data without refreshing the page
 * THe Old Way: XML/HTTP Request was how it was created
-* The New Way: jQuery: Fetch:
+* The New Way: jQuery: Fetch: */}
     * `fetch('/my/url').then(response => {
         console.log(response);
     })`
-* Less data is wasted this way, 
+{/* * Less data is wasted this way, 
 * Single page applications are popular now
     * Never do a full reload
-* Get a promise, will let you know when i get a value
+* Get a promise, will let you know when i get a value */}
 
-### Promises
+{/* ### Promises
 * A promise is an object hat may produce a single value some time in the future
 * Either a resolved value or a reason that it's not resolved (rejected)
 * Fulfilled, rejected, pending (States)
 * Replaces callbacks, callbacks creates pyramids of doom
 * Serve same purposes as callbacks and new to ES6
-* Callback code:
+* Callback code: */}
     * `movePlayer(100, 'Left', function() {
             movePlayer(400, 'Left', function () {
                 movePlayer(10, 'Right', function() {
@@ -61,13 +61,13 @@
                 });
             });
     });`
-* Promises Version
+{/* * Promises Version */}
     * `movePlayer(100, 'Left')
         .then(() => movePlayer(400, 'Left'))
         .then(() => movePlayer(10, 'Right'))
         .then(() => movePlayer(330, 'Left))
 
-* Create a promise
+{/* * Create a promise */}
 `const promise = new Promise((resolve, reject) => {
     if (true) {
         resolve('Stuff Worked');
@@ -101,7 +101,7 @@ promise
         console.log(result3 + '1");
     })
 
-==============================================================================
+// ==============================================================================
 const urls = [
     "url1",
     "url2",
@@ -116,11 +116,50 @@ Promise.all(urls.map(url => {
     console.log((results[2]
 }).catch(() => console.log('error'))
 
-* Promises are good for async communication
-* Pormises are alike event listeners, but can only fail or succeed once
-### ES8 - Async Await: 
+// * Promises are good for async communication
+// * Pormises are alike event listeners, but can only fail or succeed once
+// ### ES8 - Async Await: 
+    // built on top of promises
 
-### ES9 
-* Async
+    async function playerStart() {
+        const first = await movePlayer(100, 'Left'); // pause
+        const second =await movePlayer(400, 'Left'); // pause
+        await movePlayer(10, 'Right'); // pause
+        await movePlayer(330, 'Left'); // pause 
+    }
+    // syntatic sugar of promises syntax 
+    // fetch = promise
+fetch('https://jsonplaceholder.typicode.com/users')
+    .then(resp => resp.json())
+    .then(console.log)
 
-### ES2020: allSettled
+    // looks cleaner than promises above^
+
+async function fetchUsers() {
+    const resp = await fetch('https://jsonplaceholder.typicode.com/users')
+    const data = await resp.json();
+    console.log(data);
+}
+
+const urls = [
+    'https://jsonplaceholder.typicode.com/users',
+    'https://jsonplaceholder.typicode.com/posts',
+    'https://jsonplaceholder.typicode.com/albums'
+]
+
+const getData1 = async function() {
+    try {
+        const [ users, posts, albums ] = await Promise.all(urls.map(url =>
+            fetch(url).then(resp => resp.json())
+            ))
+            console.log(users);
+            console.log(posts);
+            console.log(albums);
+    } catch (err) {
+        console.log('oops', err);
+    }
+}
+
+// ### ES9 
+
+// ### ES2020: allSettled
