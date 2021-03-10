@@ -151,3 +151,106 @@ console.log(countBs("BBC"));
 // → 2
 console.log(countChar("kakkerlak", "k"));
 // → 4
+
+// Chapter 4 Data Structures
+    // Exercise 1: The sum of a range
+        // Write a range function that takes two args start & end, and returns
+        // an arraycontainig all the numbers from start up to & including end;
+            const range = (start, end) => {
+                list = [];
+                count = start;
+                for (let i = 0; i <= (end - start); i++) {
+                    list.push(count);
+                    count++;
+                }
+                return list 
+            }
+        // Next write a sum function that takes an array of numbers & returns the 
+        // sum of these numbers; 
+
+            const sum = numbers => {
+                let total = 0
+                for (let number of numbers) {
+                    total += number;
+                }
+                return total;
+            }
+
+        // As a bonus, modify range to take an optional third argument for step value
+            const range1 = (start, end, step=1) => {
+                list = [];
+                if (step === 0) {
+                    step = 1;
+                } else if (step > 0) {
+                    for (let i = start; i <= end; i += step){
+                        list.push(i);
+                    }
+                } else {
+                    for (let i = start; i >= end; i+= step) {
+                        list.push(i);
+                    }
+                }
+                return list
+            }
+    // Exercise 2: Reversing an array:
+            // write 2 functions reverseArray & reverseArrayInPlace
+            // the first: reverseArray takes an array as an arg & produces a new array
+            // the second: does the same as above, but modifies the given array
+            // neither may use the standard reverse method
+
+            const reverseArray = list => {
+                let newList = [];
+                for (let item of list) {
+                    newList.unshift(item);
+                }
+                return newList
+            }
+            
+            // Book SOlution:
+            function reverseArrayInPlace(array) {
+                for (var i = 0; i < Math.floor(array.length / 2); i++) {
+                    var old = array[i];
+                    array[i] = array[array.length - 1 - i];
+                    array[array.length - 1 - i] = old;
+                }
+                return array;
+            }
+
+            // try to understand book solution: 
+            const reverseArrayInPlace1 = array => {
+                for (let i = 0; i < array.length; i++){
+                    let tmp = array[i];
+                    array[i] = array[array.length - 1 - i];
+                    array[array.length -1 -i] = tmp;
+                }
+                return array
+            }
+
+            console.log(reverseArray(["A", "B", "C"]));
+            // → ["C", "B", "A"];
+            var arrayValue = [1, 2, 3, 4, 5];
+            reverseArrayInPlace(arrayValue);
+            console.log(arrayValue);
+            // → [5, 4, 3, 2, 1]
+    // Exercise 3: A List:
+            // Write a function 1.*arrayToList that builds up a list structure like the
+            // example; Also write a function 2.*listToArray that does the opposite
+            // Add a helper function 3.*prepend which takes an element & a list
+            // & creates a new list that adds the element to the front of the 
+            // input list & 4.*nth which takes a list & a number & returns the element
+            // at the given position in the list( )
+            let list = {
+                value: 1,
+                rest: {
+                    value: 2,
+                    rest: {
+                        value: 3,
+                        rest: null
+                    }
+                }
+            };
+            let array = [1,2,3];
+            let arrayToList = array => {
+                list = {};
+                
+            }
