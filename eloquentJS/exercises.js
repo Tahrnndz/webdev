@@ -249,8 +249,23 @@ console.log(countChar("kakkerlak", "k"));
                     }
                 }
             };
-            let array = [1,2,3];
-            let arrayToList = array => {
-                list = {};
-                
+            list = [1,2,3,4,5]
+            function arrayToList(array) {
+                var list = null;
+                for (var i = array.length - 1; i >= 0; i--){
+                    // console.log(i);
+                    list = {value: array[i], rest: list};
+                    // console.log("i: ",i, "value: ", list.value, "rest: ", list.rest);
+                }
+                return list;
             }
+            // arrayToList(list);
+
+            function listToArray(list) {
+                var array = [];
+                for (var node = list; node; node = node.rest)
+                    // console.log(node);
+                    array.push(node.value);
+                return array;
+            }
+            listToArray(arrayToList(list))
