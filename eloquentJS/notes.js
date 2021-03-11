@@ -153,3 +153,176 @@ const JOURNAL = require("./journal");
     function rememberUrgently(task) {
         todoList.unshift(task);
     }
+
+// Chapter 5 Higher Order Functions
+
+    function repeatLog(n) {
+        for (let i = 0; i < n; i++) {
+            console.log(i);
+        }
+    }
+
+    function repeat(n, action) {
+        for (let i = 0; i < n; i++) {
+            action(i);
+        }
+    }
+
+    let labels = [];
+    repeat(5, i => {
+        labels.push(`Unit ${i + 1}`);
+    });
+    console.log(labels);
+
+    // higher order functions:
+    // function creates a new function:
+        function greaterThan(n) {
+            return m => m > n;
+        }
+        let greaterThan10 = greaterThan(10);
+        console.log(greaterThan10(11);
+    
+    // function that changes other functions:
+        function noisy(f) {
+            return(...args) => {
+                console.log("calling with", args);
+                let result = f(...args);
+                console.log("called with", args, ", returned", result);
+                return result;
+            };
+        }
+
+        noisy(Math.min)(3, 2, 1);
+
+        // Functions that provide new types of control flow
+        function unless(test, then) {
+            if (!test) then();
+        }
+        repeat(3, n => {
+            unless(n % 2 == 1, () => {
+                console.log(n, "is even");
+            });
+        });
+
+        // forEach that provides a for/of loop as ahigher order function:
+        ["A", "B"].forEach(l => console.log(l));
+
+        function filter(array, test) {
+            let passed = [];
+            for (let element of array) {
+                if (test(element)) {
+                    passed.push(element);
+                }
+            }
+            return passed;
+        }
+
+        console.log(filter(SCRIPTS, script => script.living));
+
+        // or use filter method:
+        console.log(SCRIPTS.filter(s => s.direction == "ttb"));
+
+        // Transforming with MAP method
+        function map(array, transform) {
+            let mapped = [];
+            for (let element of array) {
+                mapped.push(transform(element));
+            }
+            return mapped;
+        }
+        let rtlScripts = SCRIPTS.filter(s => s.direction == "rtl");
+        console.log(map(rtlScripts, s => s.name));
+
+        // Summarizing with Reduce:
+        function reduce(array, combine, start) {
+            let current = start;
+            console.log("Current Before Loop: ", current);
+            for (let element of array) {
+                console.log("Current In Loop: ", current);
+                console.log("Element in Loop: ", element)
+                current = combine(current, element);
+                console.log("sum: ", current);
+                console.log("====")
+            }
+            return current;
+        }
+
+        console.log(reduce([1,2,3,4], (a, b) => a + b, 0));
+
+        // if your array has at least one element, you can omit start arg;
+        console.log([1,2,3,4].reduce((a,b) => a + b));
+
+        // use reduce twice to find the script with the most chars:
+        function characterCount(script) {
+            return script.ranges.reduce((count, [from, to]) => {
+                return count + (to - from);
+            }, 0);
+        }
+        console.log(SCRIPTS.reduce((a, b) => {
+            return characterCount(a) < characterCount(b) ? b : a;
+        }));
+
+        // Composability:
+        // Same function as above without higher order functions:
+
+        let biggest = null;
+        for (let script of SCRIPTS) {
+            if (biggest == null ||
+                characterCount(biggest) < characterCount(script)){
+                biggest = script;
+                }
+        }
+        console.log(biggest)
+
+        // Higher order functions shine when you need to compose operations
+        // write code that finds the average year of origin for living & dead scripts
+
+        function average(array) {
+            return array.reduce((a, b) => a + b) / array.length;
+        }
+        console.log(Math.round(average(
+            SCRIPTS.filter(s => s.living).map(s=>s.year))));
+
+        console.log(Math.round(average(
+            SCRIPTS.filter(s => !s.living).map(s => s.year))));
+
+        // Above written in loops. not as elegant
+        let total = 0, count = 0;
+        for (let script of SCRIPTS) {
+            if (script.living) {
+                total += script.year;
+                count += 1;
+            }
+        }
+        console.log(Math.round(total / count));
+
+        // Recoginizing Text
+        function countBy(items, groupName) {
+            let counts = [];
+            for (let item of items) {
+                let name = groupName(item);
+                let known = counts.findIndex(c => c.name == name);
+                if (known == -1) {
+                    counts.push({name, count:1});
+                } else {
+                    counts[known].count++;
+                }
+            }
+            return counts;
+        }
+        console.log(countBy([1, 2, 3, 4, 5], n => n > 2));
+
+        function textScripts(text) {
+            let scripts = countBy(text, char => {
+                let scripts = characterScript(char.codePointAt(0));
+                return script ? script.name : "none";
+            }).filter(({name}) => name != "none");
+
+            let total = scripts.reduce((n, {count}) => n + count, 0);
+            if (total == 0) return "No scripts found";
+
+            return scripts.map(({name, count}) => {
+                return `${Math.round(count * 100 / total )}`;
+            }).join(", ");
+        }
+        console.log(textS)
