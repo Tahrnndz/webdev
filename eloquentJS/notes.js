@@ -326,3 +326,186 @@ const JOURNAL = require("./journal");
             }).join(", ");
         }
         console.log(textS)
+
+// Ch 6. The Secret Life of Objects: 
+    // Methods: Properties that hold function values
+
+        let rabbit = {};
+        rabbit.speak = function(line) {
+            console.log(`The rabbit says '${line}'`);
+        }
+        rabbit.speak("I'm alive");
+
+        function speak(line) {
+            console.log(`The ${this.type} rabbit says '${line}'`);
+        }
+        let whiteRabbit = {type: "white", speak};
+        let hungryRabbit = {type: "hungry", speak};
+
+        whiteRabbit.speak("Oh my ears and whiskers, " + "how late it's getting!");
+        hungryRabbit.speak("I could use acarrot right now.");
+    // think of 'this' as an extra parameter that is passed in a different way.
+    // if you want to pass it explicitly, you can use a function's call method
+
+    speak.call(hungryRabbit, "Burp!");
+    // Arrow functions can see the this in their surrounding scope, unlike when 
+    // you use the function keyword
+    function normalize() {
+        console.log(this.coords.map(n => n /this.length));
+    }
+    normalize.call({coords: [0, 2, 3], length: 5});
+    
+    // Prototypes:
+    let empty = {};
+    console.log(empty.toString);
+    console.log(empty.toString());
+    // most obejts have a prototype; A prototype is another object that is used
+    // as a fallback source of properties.  When an obj gets a request for a property
+    // that it doesn't have, its prototype will be searched
+
+    // entity behind almost all objects, Object.prototype
+    console.log(Object.getPrototypeOf({})) == Object.prototype); // true
+    console.log(Object.getPrototypeOf(Object.prototype)); // null
+    // Functions derive from Function.prototype & 
+    // Arrays derive from Array.prototype
+    console.log(Object.getPrototypeOf(Math.max) == Function.prototype);// true
+    console.log(Object.getPrototypeOf([]) == Array.prototype); // true
+
+    // you can use Object.create to create an object with a specific prototype
+    let protoRabit = {
+        speak(line) {
+            console.log(`The ${this.type} rabbit says '${line}'`);
+        }
+    }
+    let killerRabbit = Object.create(protoRabbit);
+    killerRabbit.type = "killer";
+    killerRabbit.speak("SKREEE!"); // The killer rabbit says 'SKREEE!'
+
+    // Classes:
+    // JavaScript's prototype system can be interpreted as an informal take
+    // on an OO concept called classes
+
+    // A constructor function makes an object from the proper prototype 7 
+    // make sure that it has the properties that instances of the class are 
+    // supposed to have
+
+    function makeRabbit(type) {
+        let rabbit = Object.create(protoRabbit);
+        rabbit.type =type;
+        return rabbit;
+    }
+
+    function Rabbit(type) {
+        this.type = type;
+    }
+    Rabbit.prototype.speak = function(line) {
+        console.log(`The ${this.type} rabbit says '${line}'`);
+    }
+    let weirdRabbit = newRabbit("weird");
+
+    // all functions automatically get a property named prototype which holds a plain
+    // empty object that derives from Object.prototype
+
+    // Class notation:
+        // JavaScript Classes are constructor functions with a prototype prop;
+        // That is how they work, but now we can write them in an easier manner
+
+        class Rabbit {
+            constructor(type) {
+                this.type = type;
+            }
+            speak(line) {
+                console.log(`The ${this.type} rabbit says '${line}'`);
+            }
+        }
+        let killerRabbit = new Rabbit("killer");
+        let blackRabbit = new Rabbit("black");
+
+        // The class keyword starts the class declaration which allows us to 
+        // define a constructor & a set of methods all in one place
+        
+        // like function, class can be used both in statements & in expressions
+
+        let object = new class {getWord() { return "hello"; } };
+        console.log(object.getWord()); // hello 
+    
+    // Overriding Derived Properties:
+        Rabbit.prototype.teeth = "small";
+        console.log(killerRabbit.teeth); // => small
+        killerRabbit.teeth = "long, sharp, & bloody";
+        console.log(killerRabbit.teeth); // => long, sharp, & bloody
+
+    // Maps: 
+        // A map is a datat structure that associates values (the keys) with other
+        // values
+
+        let ages = {
+            Boris: 39,
+            Liang: 22,
+            Julia: 62
+        };
+
+        console.log(`Julia is ${ages["Julia"]}`); // => Julia is 62
+        console.log("Is Jack's age known?", "Jack" in ages);// => false
+        console.log("Is toString's age known?", "toString" in ages); // => true
+
+        let ages = new Map();
+        ages.set("Boris", 39);
+        ages.set("Liang", 22);
+        ages.set("Julia", 62);
+        console.log(`Julia is ${ages.get("Julia")}`); // => Julia is 62
+        console.log("Is Jack's age known?", ages.has("Jack"));// => false
+        console.log("Is toString's age known?", ages.has("toString")); // => false
+
+    // Polymorphism:
+
+    Rabbit.prototype.toString = function() {
+        return `a ${this.type} rabbit`;
+    };
+    console.log(String(blackRabbit)); // => a black rabbit
+
+    // Symbols: values created with the Symbol function, you cannot create the same
+    // symbol twice
+
+    let sym = Symbol("name");
+    console.log(sym == Symbol("name")); // -> false
+    Rabbit.prototype[sym] = 55;
+    console.log(blackRabbit[sym]); // => 55
+    
+    const toStringSymbol = Symbol("toString");
+    Array.prototype[toStringSymbol] = function() {
+        return `${this.length} cm of blue yarn`;
+    }
+    console.log([1, 2].toString()); // => 1, 2
+    console.log([1, 2][toStringSymbol]()); // => 2 cm of blue yarn
+
+    // Getters, Setters, and Statics:
+    let varyingSize = {
+        get size() {
+            return Math.floor(Math.random() * 100) ;
+        }
+    };
+
+    console.log(varyingSize.size); // => 73
+    console.log(varyingSize.size); // => 49
+
+    class Temperature {
+        constructor(celsius) {
+            this.celsius = celsius;
+        }
+        get fahrenheit() {
+            return this.celsius * 1.8 + 32;
+        }
+        set fahrenheit(value) {
+            this.celsius = (value - 32) / 1.8;
+        }
+
+        static fromFahrenheit(value){
+            return new Temperature((value - 32) / 1.8);
+        }
+    }
+    
+    let temp = new Temperature(22);
+    console.log(temp.fahrenheit); // => 71.6
+    temp.fahrenheit = 86;
+    console.log(temp.celsius); // => 30
