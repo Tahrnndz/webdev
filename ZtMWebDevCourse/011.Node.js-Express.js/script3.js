@@ -27,8 +27,8 @@ import fs from 'fs';
 // })
 
 // Delete
-fs.unlink('./bye.txt', err => {
-    if (err) {
-        console.log(err);
-    }
-});
+// fs.unlink('./bye.txt', err => {
+//     if (err) {
+//         console.log(err);
+//     }
+// });
